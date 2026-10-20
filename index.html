@@ -14064,6 +14064,17 @@ html.tiny-mobile #tiny-remaster-atmosphere .remaster-corner::after{animation:non
 <!-- ============================================================ -->
 <!-- 🌟 SCRIPT LOGIC: GSAP, 3D ENVELOPE, HUD & INTERACTION FX    -->
 <!-- ============================================================ -->
+<!-- Container for Sky Lanterns -->
+<div id="sky-lanterns-container" aria-hidden="true"></div>
+<!-- 💌 DROPPED MINI ENVELOPE FROM AIRPLANE -->
+<div id="dropped-mini-envelope" class="dropped-mini-envelope" role="button" tabindex="0" aria-label="Chạm vào phong thư để mở 💌">
+  <div class="dropped-env-pulse"></div>
+  <div class="dropped-env-body">
+    <span class="mini-env-icon">💌</span>
+  </div>
+  <div class="dropped-env-hint">Chạm vào phong thư để mở 💌</div>
+</div>
+
 <script id="romantic-experience-logic">
 (() => {
   'use strict';
@@ -14208,17 +14219,18 @@ html.tiny-mobile #tiny-remaster-atmosphere .remaster-corner::after{animation:non
 
   // Function to drop envelope from airplane
   window.triggerEnvelopeDrop = function() {
-    if (!droppedEnvelope) return;
+    const el = document.getElementById('dropped-mini-envelope');
+    if (!el) return;
     isWaitingForDroppedEnvelope = true;
-    droppedEnvelope.classList.add('is-dropped');
-    droppedEnvelope.style.display = 'flex';
+    el.classList.add('is-dropped');
+    el.style.display = 'flex';
 
     if (window.WebAudioSFX && typeof WebAudioSFX.playLetterDropSFX === 'function') {
       WebAudioSFX.playLetterDropSFX();
     }
 
     if (window.gsap) {
-      gsap.fromTo(droppedEnvelope, {
+      gsap.fromTo(el, {
         top: '20%',
         scale: 0.3,
         rotation: -25,
@@ -14231,12 +14243,12 @@ html.tiny-mobile #tiny-remaster-atmosphere .remaster-corner::after{animation:non
         duration: 1.8,
         ease: 'power2.out',
         onComplete: () => {
-          droppedEnvelope.focus();
+          el.focus();
         }
       });
     } else {
-      droppedEnvelope.style.top = '50%';
-      droppedEnvelope.style.opacity = '1';
+      el.style.top = '50%';
+      el.style.opacity = '1';
     }
   };
 
@@ -14245,21 +14257,22 @@ html.tiny-mobile #tiny-remaster-atmosphere .remaster-corner::after{animation:non
     if (!isWaitingForDroppedEnvelope) return;
     isWaitingForDroppedEnvelope = false;
 
-    if (droppedEnvelope) {
+    const el = document.getElementById('dropped-mini-envelope');
+    if (el) {
       if (window.gsap) {
-        gsap.to(droppedEnvelope, {
+        gsap.to(el, {
           scale: 1.25,
           opacity: 0,
           duration: 0.35,
           ease: 'power2.in',
           onComplete: () => {
-            droppedEnvelope.classList.remove('is-dropped');
-            droppedEnvelope.style.display = 'none';
+            el.classList.remove('is-dropped');
+            el.style.display = 'none';
           }
         });
       } else {
-        droppedEnvelope.classList.remove('is-dropped');
-        droppedEnvelope.style.display = 'none';
+        el.classList.remove('is-dropped');
+        el.style.display = 'none';
       }
     }
     openEnvelopeModal();
@@ -14299,14 +14312,21 @@ html.tiny-mobile #tiny-remaster-atmosphere .remaster-corner::after{animation:non
   }
 
   // Attach Event Listeners
-  if (droppedEnvelope) {
-    droppedEnvelope.addEventListener('click', handleDroppedEnvelopeOpen);
-    droppedEnvelope.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        handleDroppedEnvelopeOpen(e);
-      }
-    });
-  }
+  const bindDroppedEnvelope = () => {
+    const el = document.getElementById('dropped-mini-envelope');
+    if (el && !el._boundOpen) {
+      el._boundOpen = true;
+      el.addEventListener('click', handleDroppedEnvelopeOpen);
+      el.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          handleDroppedEnvelopeOpen(e);
+        }
+      });
+    }
+  };
+  bindDroppedEnvelope();
+  document.addEventListener('DOMContentLoaded', bindDroppedEnvelope);
 
   if (realityRereadBtn) {
     realityRereadBtn.addEventListener('click', (e) => {
@@ -14630,17 +14650,6 @@ html.tiny-mobile #tiny-remaster-atmosphere .remaster-corner::after{animation:non
 
 })();
 </script>
-
-<!-- Container for Sky Lanterns & Desktop Cursor Halo -->
-<div id="sky-lanterns-container" aria-hidden="true"></div>
-<!-- 💌 DROPPED MINI ENVELOPE FROM AIRPLANE -->
-    <div id="dropped-mini-envelope" class="dropped-mini-envelope" role="button" tabindex="0" aria-label="Chạm vào phong thư để mở 💌">
-      <div class="dropped-env-pulse"></div>
-      <div class="dropped-env-body">
-        <span class="mini-env-icon">💌</span>
-      </div>
-      <div class="dropped-env-hint">Chạm vào phong thư để mở 💌</div>
-    </div>
 
 </body>
 </html>

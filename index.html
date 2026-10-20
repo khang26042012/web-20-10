@@ -13971,10 +13971,18 @@ html.tiny-mobile #tiny-remaster-atmosphere .remaster-corner::after{animation:non
   }
 
   function handleEnvelopeClick(e) {
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
     if (envelopeOpening) return;
     envelopeOpening = true;
     hasOpenedEnvelopeOnce = true;
     triggerRoseShower();
+
+    if (window.WebAudioSFX && typeof WebAudioSFX.playChimeSFX === 'function') {
+      WebAudioSFX.playChimeSFX();
+    }
 
     if (envelopeWrapper) envelopeWrapper.classList.add('is-opening');
 
@@ -13997,6 +14005,18 @@ html.tiny-mobile #tiny-remaster-atmosphere .remaster-corner::after{animation:non
     if (!letterModal) return;
     letterModal.classList.add('active');
     letterModal.setAttribute('aria-hidden', 'false');
+    letterModal.style.opacity = '1';
+    letterModal.style.visibility = 'visible';
+    letterModal.style.pointerEvents = 'auto';
+
+    if (letterBackdrop) {
+      letterBackdrop.style.opacity = '1';
+      letterBackdrop.style.visibility = 'visible';
+    }
+    if (letterCard) {
+      letterCard.style.opacity = '1';
+      letterCard.style.visibility = 'visible';
+    }
 
     if (window.gsap) {
       if (letterBackdrop) {
@@ -14126,7 +14146,21 @@ html.tiny-mobile #tiny-remaster-atmosphere .remaster-corner::after{animation:non
     });
   }
 
-    // Attach Dialog Close Triggers
+    // Envelope & Letter Opening Triggers (Click & Tap)
+  if (envelopeBox) envelopeBox.addEventListener('click', handleEnvelopeClick);
+  if (envelopeWrapper) envelopeWrapper.addEventListener('click', handleEnvelopeClick);
+  const envelopeWaxSeal = document.getElementById('envelope-wax-seal');
+  if (envelopeWaxSeal) envelopeWaxSeal.addEventListener('click', handleEnvelopeClick);
+
+  if (openCtaBtn) {
+    openCtaBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      openEnvelopeModal();
+    });
+  }
+
+  // Attach Dialog Close Triggers
   if (envelopeCloseBtn) envelopeCloseBtn.addEventListener('click', (e) => { e.preventDefault(); e.stopPropagation(); closeEnvelopeModal(); });
   if (envelopeBackdrop) envelopeBackdrop.addEventListener('click', (e) => { e.preventDefault(); e.stopPropagation(); closeEnvelopeModal(); });
 
@@ -14138,6 +14172,12 @@ html.tiny-mobile #tiny-remaster-atmosphere .remaster-corner::after{animation:non
     letterCard.addEventListener('pointerdown', (e) => e.stopPropagation());
   }
 
+  // Global window helpers for instant access
+  window.openLetterModal = openLetterDirectly;
+  window.openLetterDirectly = openLetterDirectly;
+  window.openEnvelopeModal = openEnvelopeModal;
+  window.handleEnvelopeClick = handleEnvelopeClick;
+
   // 8. Keyboard Accessibility Shortcuts
   document.addEventListener('keydown', (e) => {
     // Escape to close modals
@@ -14147,6 +14187,12 @@ html.tiny-mobile #tiny-remaster-atmosphere .remaster-corner::after{animation:non
       } else if (letterModal && letterModal.classList.contains('active')) {
         closeLetterModal();
       }
+    }
+    // Enter / Space to open envelope if active
+    if ((e.key === 'Enter' || e.key === ' ') && envelopeModal && envelopeModal.classList.contains('active')) {
+      e.preventDefault();
+      handleEnvelopeClick(e);
+      return;
     }
     // Key M to toggle music
     if ((e.key === 'm' || e.key === 'M') && !e.ctrlKey && !e.metaKey && e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA') {

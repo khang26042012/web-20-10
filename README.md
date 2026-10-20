@@ -7,12 +7,12 @@ Dự án website nghệ thuật tương tác chào mừng ngày Phụ nữ Việ
 
 ---
 
-## 🌟 Đỉnh Cao Trải Nghiệm Mới (Next-Level Creative Web Suite)
+## 🌟 Đỉnh Cao Trải Nghiệm Nghệ Thuật (Creative Web Suite)
 
 ### 1. 💌 Phong Bì Thư 3D Hoàng Gia (Interactive 3D Origami Envelope)
 - Trải nghiệm mở phong bì thư tương tác chuẩn không gian 3D (`perspective: 1100px`, `transform-style: preserve-3d`).
 - **Dấu sáp hoàng gia (Wax Seal)**: Con dấu sáp đỏ viền vàng khắc nổi biểu tượng trái tim và con số kỷ niệm `20/10`.
-- Hiệu ứng mở nắp phong bì chuyển động mượt mà (`rotateX(-180deg)`), bức thư trượt ra bồng bềnh kết hợp cùng pháo hoa stardust rực rỡ.
+- Hiệu ứng mở nắp phong bì chuyển động mượt mà (`rotateX(-180deg)`), bức thư trượt ra bồng bềnh kết hợp cùng pháo hoa stardust rực rỡ khi chạm nút *"Bức thư gửi cậu"* ở màn hình kết thúc.
 
 ### 2. 🍀 Rút Quẻ May Mắn 20/10 (3D Flip Fortune Clover Card)
 - **Thẻ bài cỏ 4 lá tương tác 3D**: Chạm vào ngọn cỏ bốn lá để lật thẻ 180° với chuyển động vật lý đàn hồi.
@@ -28,25 +28,24 @@ Dự án website nghệ thuật tương tác chào mừng ngày Phụ nữ Việ
 - Tiếng chuông harp du dương mỗi khi chuyển tiếp lời thoại (`659.25Hz`).
 - Hợp âm tiên nữ 4 nốt vút bay (`playCelestialArpeggio`) khi phá niêm phong phong bì thư.
 - Tiếng pha lê rộn rã (`playCrystalSparkle`) khi thả hoa hồng hoặc rút quẻ may mắn.
-- Tự động đồng bộ trạng thái tắt/bật tiếng với thanh điều khiển HUD.
 
 ### 5. 🖱️ Con Trỏ Chuột Hào Quang Nam Châm (Desktop Magnetic Halo)
 - Vòng hào quang ánh hồng lung linh bám đuổi mượt mà theo con trỏ chuột trên máy tính (`mix-blend-mode: screen`).
 - Hiệu ứng nam châm tự động giãn nở và phát sáng vàng kim khi di chuyển qua các nút bấm hoặc phong bì thư.
 - Tự động ẩn trên màn hình cảm ứng điện thoại để tối ưu 100% hiệu năng.
 
-### 6. 🎵 Thanh Điều Khiển Romantic HUD Tinh Tế
-- **Live Equalizer Bars**: 3 vạch sóng âm chuyển động nhịp nhàng theo giai điệu bài hát *"Chờ anh chút thôi"*.
-- **Bật/Tắt nhạc nền (Phím `M`)**: Tạm dừng hoặc phát tiếp nhạc với fade âm lượng dịu dàng.
-- **Bước tới nhanh (⏭️ / Phím `Space` / `→`)**: Điều hướng phân đoạn lời thoại dễ dàng trên cả điện thoại và máy tính.
-- **Mở nhanh bức thư (💌 / Phím `L`)**: Phím tắt truy cập trực tiếp bức tâm thư 20/10 bất cứ lúc nào.
-
-### 7. 📜 Bức Tâm Thư 20/10 Đỉnh Cao (Pro Max Suite)
+### 6. 📜 Bức Tâm Thư 20/10 Đỉnh Cao (Pro Max Suite)
 - **Công cụ tiện ích**:
   - 📋 **Sao chép lời chúc**: Sao chép nguyên văn bức thư vào clipboard đi kèm thông báo Toast nổi dịu dàng.
   - 🌸 **Mưa hoa hồng**: Bùng nổ cơn mưa hoa và tim vàng bay lượn trên màn hình (`canvas-confetti`).
   - 🎙️ **Đọc thư truyền cảm**: Tích hợp `Web Speech API` (tiếng Việt `vi-VN`) giúp người xem vừa lắng nghe nhạc vừa nghe đọc bức tâm thư.
   - 🔄 **Xem lại từ đầu**: Nút replay hành trình thuận tiện.
+
+### 7. ⌨️ Phím Tắt Tiện Ích
+- `Space` / `→`: Chuyển cảnh lời thoại.
+- `M`: Bật/Tắt nhạc nền.
+- `L`: Mở/Đóng bức tâm thư.
+- `Esc`: Đóng phong bì hoặc bức thư.
 
 ---
 

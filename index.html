@@ -31,6 +31,156 @@ window.TINY_PERF = (() => {
     orbitFps:android ? 18 : mobile ? 24 : lite ? 24 : 60,
     leafFps: android ? 18 : mobile ? 24 : lite ? 24 : 60 };
 
+
+  // ==========================================
+  // 🍀 FORTUNE 20/10 CLOVER LOGIC
+  // ==========================================
+  const fortuneCard = document.getElementById('fortune-clover-card');
+  const fortuneQuote = document.getElementById('fortune-quote');
+  const fortuneRedrawBtn = document.getElementById('fortune-redraw-btn');
+
+  const FORTUNES_20_10 = [
+    "Mong nụ cười của cậu hôm nay sẽ làm bừng sáng cả một góc trời! 💖",
+    "Cậu là phiên bản duy nhất, đặc biệt và vô cùng quý giá trên thế giới này. 🌸",
+    "Gửi tặng cậu một ngọn cỏ 4 lá: Chúc mọi điều cậu đang mong ước sớm thành hiện thực! 🍀",
+    "Dù cuộc sống có bận rộn thế nào, nhớ luôn yêu thương và dịu dàng với bản thân nhé. ✨",
+    "Chúc cậu mỗi sáng thức dậy đều ngập tràn niềm vui, mỗi tối về đều an giấc bình yên. 🌙",
+    "Món quà tuyệt vời nhất hôm nay không phải thứ xa xỉ, mà là nụ cười rạng rỡ của chính cậu. 🎁",
+    "Cậu tỏa sáng theo cách rất riêng, chẳng cần phải giống bất kỳ ai cả. ☀️",
+    "20/10 thật hạnh phúc nhé! Mong cả thế giới này sẽ luôn đối xử thật dịu dàng với cậu. 💌",
+    "Hôm nay, hãy tự thưởng cho mình một ly nước ngon và một khoảng thời gian thật thư thái nhé! 🥤",
+    "Cảm ơn vì cậu đã luôn kiên cường và tỏa sáng rực rỡ như một đóa hoa thơm. 🌺"
+  ];
+
+  function drawRandomFortune() {
+    if (!fortuneQuote) return;
+    const randomPick = FORTUNES_20_10[Math.floor(Math.random() * FORTUNES_20_10.length)];
+    fortuneQuote.textContent = randomPick;
+  }
+
+  if (fortuneCard) {
+    fortuneCard.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (!fortuneCard.classList.contains('is-flipped')) {
+        drawRandomFortune();
+        fortuneCard.classList.add('is-flipped');
+        WebAudioSFX.playCrystalSparkle();
+        triggerRoseShower();
+      }
+    });
+  }
+
+  if (fortuneRedrawBtn) {
+    fortuneRedrawBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      fortuneCard.classList.remove('is-flipped');
+      setTimeout(() => {
+        drawRandomFortune();
+        fortuneCard.classList.add('is-flipped');
+        WebAudioSFX.playCrystalSparkle();
+      }, 350);
+    });
+  }
+
+  // ==========================================
+  // 🏮 FLOATING SKY LANTERNS GENERATOR
+  // ==========================================
+  const lanternsContainer = document.getElementById('sky-lanterns-container');
+  const letterLanternBtn = document.getElementById('letter-lantern-btn');
+
+  function releaseSkyLanterns(count = 9) {
+    if (!lanternsContainer) return;
+    WebAudioSFX.playCelestialArpeggio();
+    showToast('🏮 Những chiếc đèn lồng ước nguyện đang bay lên trời sao! 🏮');
+
+    for (let i = 0; i < count; i++) {
+      setTimeout(() => {
+        const lantern = document.createElement('div');
+        lantern.className = 'sky-lantern';
+        const startX = Math.random() * (window.innerWidth - 60) + 30;
+        const scale = 0.55 + Math.random() * 0.65;
+        const duration = 9 + Math.random() * 6;
+        const drift = (Math.random() - 0.5) * 160;
+
+        lantern.style.left = startX + 'px';
+        lantern.style.transform = `scale(${scale})`;
+        lanternsContainer.appendChild(lantern);
+
+        if (window.gsap) {
+          gsap.to(lantern, {
+            y: -window.innerHeight - 150,
+            x: `+=${drift}`,
+            rotation: (Math.random() - 0.5) * 20,
+            duration: duration,
+            ease: 'power1.out',
+            onComplete: () => lantern.remove()
+          });
+        } else {
+          lantern.style.transition = `transform ${duration}s ease-out, opacity ${duration}s ease-in`;
+          lantern.style.transform = `translate(${drift}px, -${window.innerHeight + 150}px) scale(${scale})`;
+          setTimeout(() => lantern.remove(), duration * 1000);
+        }
+      }, i * 350);
+    }
+  }
+
+  if (letterLanternBtn) {
+    letterLanternBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      releaseSkyLanterns(10);
+    });
+  }
+
+  // ==========================================
+  // 🖱️ DESKTOP MAGNETIC CURSOR HALO
+  // ==========================================
+  (() => {
+    if (window.matchMedia('(pointer: coarse)').matches) return;
+    const halo = document.getElementById('cursor-halo');
+    if (!halo) return;
+
+    let mouseX = -100, mouseY = -100;
+    let haloX = -100, haloY = -100;
+
+    window.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+    }, { passive: true });
+
+    function renderHalo() {
+      haloX += (mouseX - haloX) * 0.18;
+      haloY += (mouseY - haloY) * 0.18;
+      halo.style.left = haloX.toFixed(1) + 'px';
+      halo.style.top = haloY.toFixed(1) + 'px';
+      requestAnimationFrame(renderHalo);
+    }
+    requestAnimationFrame(renderHalo);
+
+    const interactiveSelectors = 'button, a, .envelope-box, .fortune-clover-card, .wax-seal';
+    document.addEventListener('mouseover', (e) => {
+      if (e.target.closest(interactiveSelectors)) {
+        halo.classList.add('hovering');
+      }
+    }, { passive: true });
+
+    document.addEventListener('mouseout', (e) => {
+      if (e.target.closest(interactiveSelectors)) {
+        halo.classList.remove('hovering');
+      }
+    }, { passive: true });
+  })();
+
+  // Hook Celestial Arpeggio into envelope opening
+  if (typeof handleEnvelopeClick === 'function') {
+    const origHandleEnvelopeClick = handleEnvelopeClick;
+    handleEnvelopeClick = function(e) {
+      WebAudioSFX.playCelestialArpeggio();
+      return origHandleEnvelopeClick(e);
+    };
+  }
+
 })();
 </script>
 
@@ -11931,6 +12081,80 @@ if(window.TINY_PERF && !window.TINY_PERF.mobile){
 <script id="tiny-ending-script">
 (() => {
   'use strict';
+
+  // ==========================================
+  // 🎵 WEB AUDIO SYNTHETIC CHIME & SFX ENGINE
+  // ==========================================
+  const WebAudioSFX = (() => {
+    let ctx = null;
+    let muted = false;
+
+    function init() {
+      if (!ctx) {
+        const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+        if (AudioContextClass) ctx = new AudioContextClass();
+      }
+      if (ctx && ctx.state === 'suspended') {
+        ctx.resume().catch(() => {});
+      }
+    }
+
+    function setMuted(m) {
+      muted = m;
+    }
+
+    function playTone(freq, duration = 0.35, gainLevel = 0.035, type = 'sine') {
+      if (muted) return;
+      try {
+        init();
+        if (!ctx) return;
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = type;
+        osc.frequency.setValueAtTime(freq, ctx.currentTime);
+        gain.gain.setValueAtTime(gainLevel, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + duration);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start();
+        osc.stop(ctx.currentTime + duration);
+      } catch (_) {}
+    }
+
+    // Soft celestial harp chime on dialogue click
+    function playDialogueChime() {
+      playTone(659.25, 0.4, 0.025); // E5
+    }
+
+    // Ascending fairy arpeggio on envelope open
+    function playCelestialArpeggio() {
+      if (muted) return;
+      const notes = [523.25, 659.25, 783.99, 1046.50]; // C5, E5, G5, C6
+      notes.forEach((freq, idx) => {
+        setTimeout(() => playTone(freq, 0.5, 0.038), idx * 75);
+      });
+    }
+
+    // Crystal stardust chord on fortune card / confetti
+    function playCrystalSparkle() {
+      if (muted) return;
+      const notes = [1046.5, 1318.5, 1567.98, 2093.0];
+      notes.forEach((freq, idx) => {
+        setTimeout(() => playTone(freq, 0.45, 0.032), idx * 60);
+      });
+    }
+
+    return { init, setMuted, playDialogueChime, playCelestialArpeggio, playCrystalSparkle };
+  })();
+
+  // Connect dialogue click to sound chime
+  const origChuyenCanh = window.chuyenCanh;
+  if (typeof origChuyenCanh === 'function') {
+    window.chuyenCanh = function(...args) {
+      WebAudioSFX.playDialogueChime();
+      return origChuyenCanh.apply(this, args);
+    };
+  }
   const reality = document.getElementById('tiny-reality-scene');
   const card = document.getElementById('tiny-ending-card');
   if (!reality || !card) return;
@@ -12882,6 +13106,216 @@ html.tiny-mobile #tiny-remaster-atmosphere .remaster-corner::after{animation:non
 <!-- 🌟 3D ORIGAMI ENVELOPE & ROMANTIC 20/10 LETTER PRO MAX SUITE  -->
 <!-- ============================================================ -->
 <style id="romantic-suite-styles">
+/* --- 0. DESKTOP CURSOR HALO --- */
+@media (pointer: fine) {
+  #cursor-halo {
+    position: fixed;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(255, 140, 200, 0.65);
+    background: radial-gradient(circle, rgba(255, 120, 190, 0.25) 0%, transparent 75%);
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    z-index: 2147483600;
+    transition: width 0.25s cubic-bezier(0.16, 1, 0.3, 1), height 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease, background 0.25s ease;
+    mix-blend-mode: screen;
+    box-shadow: 0 0 15px rgba(255, 105, 180, 0.4);
+    will-change: left, top, transform;
+  }
+  #cursor-halo.hovering {
+    width: 52px;
+    height: 52px;
+    border-color: rgba(255, 215, 0, 0.85);
+    background: radial-gradient(circle, rgba(255, 180, 220, 0.35) 0%, transparent 80%);
+    box-shadow: 0 0 25px rgba(255, 215, 0, 0.55), 0 0 45px rgba(255, 105, 180, 0.45);
+  }
+}
+@media (pointer: coarse) {
+  #cursor-halo { display: none !important; }
+}
+
+/* --- SKY LANTERNS STYLES --- */
+#sky-lanterns-container {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 999995;
+  overflow: hidden;
+}
+.sky-lantern {
+  position: absolute;
+  bottom: -90px;
+  width: 44px;
+  height: 62px;
+  border-radius: 14px 14px 22px 22px;
+  background: radial-gradient(circle at 50% 65%, #fff6d6 0%, #ffc04d 40%, #e65100 85%, #bf360c 100%);
+  box-shadow: 0 0 25px 8px rgba(255, 167, 38, 0.75), 0 0 55px 18px rgba(255, 112, 67, 0.45);
+  opacity: 0.95;
+  will-change: transform, opacity;
+  animation: lanternFlicker 2.8s ease-in-out infinite alternate;
+}
+.sky-lantern::after {
+  content: '';
+  position: absolute;
+  bottom: -7px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 14px;
+  height: 7px;
+  border-radius: 0 0 6px 6px;
+  background: #ffcc80;
+  box-shadow: 0 0 10px #ff9800;
+}
+@keyframes lanternFlicker {
+  0% { filter: brightness(0.92) drop-shadow(0 0 10px rgba(255, 179, 0, 0.6)); }
+  100% { filter: brightness(1.15) drop-shadow(0 0 18px rgba(255, 152, 0, 0.9)); }
+}
+
+/* --- FORTUNE 20/10 CLOVER CARD --- */
+.fortune-draw-section {
+  margin: 22px 0 14px;
+  padding: 16px;
+  border-radius: 20px;
+  background: linear-gradient(145deg, rgba(58, 16, 45, 0.6), rgba(30, 8, 25, 0.75));
+  border: 1px dashed rgba(255, 180, 220, 0.35);
+  text-align: center;
+}
+.fortune-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+.fortune-divider-line {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 160, 210, 0.4), transparent);
+}
+.fortune-divider-badge {
+  font-family: 'Baloo 2', cursive;
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  color: #ffc2e2;
+  text-shadow: 0 0 12px rgba(255, 105, 180, 0.6);
+}
+.fortune-subhead {
+  margin: 0 0 14px;
+  font-size: 13px;
+  color: #ffdaee;
+  opacity: 0.88;
+  line-height: 1.4;
+}
+.fortune-clover-card {
+  position: relative;
+  width: min(100%, 360px);
+  min-height: 140px;
+  margin: 0 auto;
+  perspective: 1000px;
+  cursor: pointer;
+}
+.fortune-clover-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 16px;
+  transition: transform 0.65s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+  transform-style: preserve-3d;
+}
+.fortune-clover-card.is-flipped .fortune-clover-inner {
+  transform: rotateY(180deg);
+}
+.fortune-front, .fortune-back {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  box-sizing: border-box;
+  border-radius: 16px;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+.fortune-front {
+  background: linear-gradient(135deg, rgba(82, 22, 64, 0.85), rgba(46, 12, 38, 0.95));
+  border: 1.5px solid rgba(255, 180, 220, 0.45);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.4), 0 0 25px rgba(255, 105, 180, 0.25);
+}
+.fortune-front:hover {
+  border-color: rgba(255, 215, 0, 0.6);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.5), 0 0 30px rgba(255, 215, 0, 0.35);
+}
+.clover-3d-emblem {
+  font-size: 38px;
+  line-height: 1;
+  filter: drop-shadow(0 0 14px rgba(100, 255, 150, 0.75));
+  animation: cloverGlowFloat 2.4s ease-in-out infinite alternate;
+  margin-bottom: 8px;
+}
+@keyframes cloverGlowFloat {
+  0% { transform: translateY(0) scale(1) rotate(0deg); }
+  100% { transform: translateY(-4px) scale(1.12) rotate(8deg); }
+}
+.fortune-btn-text {
+  font-family: 'Baloo 2', cursive;
+  font-weight: 700;
+  font-size: 14.5px;
+  color: #fff4db;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.6);
+}
+
+.fortune-back {
+  background: linear-gradient(135deg, rgba(95, 24, 72, 0.95), rgba(52, 11, 42, 0.98));
+  border: 1.5px solid rgba(255, 215, 120, 0.6);
+  transform: rotateY(180deg);
+  box-shadow: 0 12px 35px rgba(0,0,0,0.5), 0 0 30px rgba(255, 215, 0, 0.35);
+}
+.fortune-card-tag {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #ffe2b0;
+  background: rgba(255, 215, 0, 0.18);
+  border: 1px solid rgba(255, 215, 0, 0.4);
+  margin-bottom: 8px;
+}
+.fortune-quote {
+  margin: 0 0 12px;
+  font-family: 'Baloo 2', cursive;
+  font-size: clamp(14px, 2.2vw, 16px);
+  font-weight: 600;
+  line-height: 1.45;
+  color: #ffffff;
+  text-shadow: 0 0 12px rgba(255, 180, 220, 0.7);
+}
+.fortune-redraw-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 180, 220, 0.4);
+  background: rgba(255, 255, 255, 0.12);
+  color: #ffdaee;
+  font-family: 'Baloo 2', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.fortune-redraw-btn:hover {
+  background: rgba(255, 105, 180, 0.35);
+  border-color: #ffaed8;
+  color: #fff;
+  transform: translateY(-1px);
+}
+
 /* --- 1. ROMANTIC HUD (TOP BAR) --- */
 .romantic-hud {
   position: fixed;
@@ -13636,6 +14070,10 @@ html.tiny-mobile #tiny-remaster-atmosphere .remaster-corner::after{animation:non
           <span class="act-icon">🌸</span>
           <span class="act-label">Mưa hoa</span>
         </button>
+        <button id="letter-lantern-btn" class="letter-action-btn" type="button" title="Thả đèn lồng ước nguyện lên trời sao">
+          <span class="act-icon">🏮</span>
+          <span class="act-label">Thả đèn</span>
+        </button>
         <button id="letter-tts-btn" class="letter-action-btn" type="button" title="Đọc thư giọng truyền cảm (Web Speech)">
           <span class="act-icon" id="tts-icon">🎙️</span>
           <span class="act-label" id="tts-label">Đọc thư</span>
@@ -13658,6 +14096,30 @@ html.tiny-mobile #tiny-remaster-atmosphere .remaster-corner::after{animation:non
       
       <p class="letter-highlight">Chúc cậu luôn hạnh phúc, không chỉ riêng ngày 20/10 mà còn trong tất cả những ngày bình thường sau này.</p>
       
+      <!-- 🍀 FORTUNE CLOVER WISH SECTION 🍀 -->
+      <div class="fortune-draw-section">
+        <div class="fortune-divider">
+          <span class="fortune-divider-line"></span>
+          <span class="fortune-divider-badge">🍀 QUẺ MAY MẮN 20/10 🍀</span>
+          <span class="fortune-divider-line"></span>
+        </div>
+        <p class="fortune-subhead">Chạm vào cỏ bốn lá để nhận thông điệp ngọt ngào dành riêng cho cậu hôm nay:</p>
+        
+        <div class="fortune-clover-card" id="fortune-clover-card" title="Chạm để lật thẻ may mắn">
+          <div class="fortune-clover-inner" id="fortune-clover-inner">
+            <div class="fortune-front">
+              <div class="clover-3d-emblem" id="clover-emblem">🍀</div>
+              <span class="fortune-btn-text">Nhấp để rút quẻ may mắn ✨</span>
+            </div>
+            <div class="fortune-back">
+              <span class="fortune-card-tag">🌸 Lời Chúc May Mắn</span>
+              <p class="fortune-quote" id="fortune-quote">Mong nụ cười của cậu hôm nay sẽ làm bừng sáng cả một góc trời! 💖</p>
+              <button id="fortune-redraw-btn" class="fortune-redraw-btn" type="button">Rút thẻ khác 🔄</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div class="letter-sign-block">
         <p class="sign-label">Thân gửi,</p>
         <p class="sign-name">Khang.</p>
@@ -14086,6 +14548,10 @@ html.tiny-mobile #tiny-remaster-atmosphere .remaster-corner::after{animation:non
 
 })();
 </script>
+
+<!-- Container for Sky Lanterns & Desktop Cursor Halo -->
+<div id="sky-lanterns-container" aria-hidden="true"></div>
+<div id="cursor-halo" aria-hidden="true"></div>
 
 </body>
 </html>

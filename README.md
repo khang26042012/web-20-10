@@ -7,46 +7,52 @@ Dự án website nghệ thuật tương tác chào mừng ngày Phụ nữ Việ
 
 ---
 
-## 🌟 Tính Năng Nổi Bật & Cải Tiến Mới (Creative Web & UI/UX Pro Max)
+## 🌟 Đỉnh Cao Trải Nghiệm Mới (Next-Level Creative Web Suite)
 
 ### 1. 💌 Phong Bì Thư 3D Hoàng Gia (Interactive 3D Origami Envelope)
 - Trải nghiệm mở phong bì thư tương tác chuẩn không gian 3D (`perspective: 1100px`, `transform-style: preserve-3d`).
 - **Dấu sáp hoàng gia (Wax Seal)**: Con dấu sáp đỏ viền vàng khắc nổi biểu tượng trái tim và con số kỷ niệm `20/10`.
 - Hiệu ứng mở nắp phong bì chuyển động mượt mà (`rotateX(-180deg)`), bức thư trượt ra bồng bềnh kết hợp cùng pháo hoa stardust rực rỡ.
 
-### 2. 🎵 Thanh Điều Khiển Romantic HUD Thông Minh
-- Tích hợp thanh HUD tinh tế cố định phía trên màn hình chuẩn Glassmorphism:
-  - **Live Equalizer Bars**: 3 vạch sóng âm chuyển động nhịp nhàng theo giai điệu bài hát *"Chờ anh chút thôi"*.
-  - **Bật/Tắt nhạc nền mượt mà**: Chạm/click để tạm dừng hoặc phát tiếp nhạc với fade âm lượng tự nhiên.
-  - **Bước tới nhanh (⏭️)**: Điều hướng phân đoạn lời thoại dễ dàng, tối ưu trải nghiệm chạm trên màn hình cảm ứng điện thoại.
-  - **Mở nhanh bức thư (💌)**: Phím tắt truy cập trực tiếp bức tâm thư 20/10 mà không cần chờ hết 16 hoạt cảnh.
+### 2. 🍀 Rút Quẻ May Mắn 20/10 (3D Flip Fortune Clover Card)
+- **Thẻ bài cỏ 4 lá tương tác 3D**: Chạm vào ngọn cỏ bốn lá để lật thẻ 180° với chuyển động vật lý đàn hồi.
+- **10 Thông điệp may mắn ngẫu nhiên**: Những lời chúc chân thành, ấm áp và ngọt ngào nhất được tuyển chọn đặc biệt cho ngày 20/10.
+- Hỗ trợ rút lại nhiều lần (`Rút thẻ khác 🔄`) cùng hiệu ứng chuông pha lê lấp lánh.
 
-### 3. 📜 Bức Tâm Thư 20/10 Đỉnh Cao (Pro Max Letter Suite)
-- **Công cụ tiện ích tích hợp**:
+### 3. 🏮 Thả Đèn Lồng Ước Nguyện (Floating Sky Lanterns)
+- Nút tính năng **"Thả đèn"** trên thanh công cụ bức thư.
+- Đàn đèn lồng hoa đăng phát sáng lung linh (`🏮`) bay từ từ lên bầu trời sao và cực quang, mang theo những lời cầu chúc bình an và may mắn nhất.
+
+### 4. 🎵 Âm Thanh Tinh Thể Thuần Khiết (Web Audio Synthetic SFX Engine)
+- **100% Độc lập (Zero External Assets)**: Tạo sóng âm trực tiếp bằng `Web Audio API` (OscillatorNode & GainNode).
+- Tiếng chuông harp du dương mỗi khi chuyển tiếp lời thoại (`659.25Hz`).
+- Hợp âm tiên nữ 4 nốt vút bay (`playCelestialArpeggio`) khi phá niêm phong phong bì thư.
+- Tiếng pha lê rộn rã (`playCrystalSparkle`) khi thả hoa hồng hoặc rút quẻ may mắn.
+- Tự động đồng bộ trạng thái tắt/bật tiếng với thanh điều khiển HUD.
+
+### 5. 🖱️ Con Trỏ Chuột Hào Quang Nam Châm (Desktop Magnetic Halo)
+- Vòng hào quang ánh hồng lung linh bám đuổi mượt mà theo con trỏ chuột trên máy tính (`mix-blend-mode: screen`).
+- Hiệu ứng nam châm tự động giãn nở và phát sáng vàng kim khi di chuyển qua các nút bấm hoặc phong bì thư.
+- Tự động ẩn trên màn hình cảm ứng điện thoại để tối ưu 100% hiệu năng.
+
+### 6. 🎵 Thanh Điều Khiển Romantic HUD Tinh Tế
+- **Live Equalizer Bars**: 3 vạch sóng âm chuyển động nhịp nhàng theo giai điệu bài hát *"Chờ anh chút thôi"*.
+- **Bật/Tắt nhạc nền (Phím `M`)**: Tạm dừng hoặc phát tiếp nhạc với fade âm lượng dịu dàng.
+- **Bước tới nhanh (⏭️ / Phím `Space` / `→`)**: Điều hướng phân đoạn lời thoại dễ dàng trên cả điện thoại và máy tính.
+- **Mở nhanh bức thư (💌 / Phím `L`)**: Phím tắt truy cập trực tiếp bức tâm thư 20/10 bất cứ lúc nào.
+
+### 7. 📜 Bức Tâm Thư 20/10 Đỉnh Cao (Pro Max Suite)
+- **Công cụ tiện ích**:
   - 📋 **Sao chép lời chúc**: Sao chép nguyên văn bức thư vào clipboard đi kèm thông báo Toast nổi dịu dàng.
   - 🌸 **Mưa hoa hồng**: Bùng nổ cơn mưa hoa và tim vàng bay lượn trên màn hình (`canvas-confetti`).
-  - 🎙️ **Đọc thư truyền cảm**: Tích hợp công nghệ giọng đọc `Web Speech API` (tiếng Việt `vi-VN`) giúp người xem vừa lắng nghe nhạc vừa nghe đọc bức tâm thư.
+  - 🎙️ **Đọc thư truyền cảm**: Tích hợp `Web Speech API` (tiếng Việt `vi-VN`) giúp người xem vừa lắng nghe nhạc vừa nghe đọc bức tâm thư.
   - 🔄 **Xem lại từ đầu**: Nút replay hành trình thuận tiện.
-
-### 4. ✨ Vệt Sao Stardust & Cánh Hoa Rơi Tương Tác
-- Khi rê chuột trên máy tính hoặc vuốt chạm trên điện thoại, các hạt sao lấp lánh (`✨`, `🌸`, `💖`, `✦`) tỏa sáng lung linh theo quỹ đạo vật lý.
-- Tự động điều phối số lượng hạt qua bộ điều phối `TINY_PERF`, cam kết đạt chuẩn 60 FPS trên mọi dòng máy từ iPhone SE đến Android cấu hình nhẹ.
-
-### 5. ⌨️ Hệ Thống Phím Tắt Tiện Lợi (Keyboard Accessibility)
-- `Space` / `→` / `Enter`: Bước tới lời thoại kế tiếp.
-- `M`: Bật / Tắt nhạc nền.
-- `L`: Mở nhanh bức tâm thư 20/10.
-- `Esc`: Đóng phong bì hoặc bức thư.
-
-### 6. 📱 Chuẩn UI/UX Mobile-First & Responsive 100dvh
-- Tương thích hoàn hảo từ màn hình nhỏ nhất (360px - 430px) đến tablet và màn hình 4K.
-- Sử dụng đơn vị `100dvh` chống hiện tượng giật layout khi thanh địa chỉ trình duyệt Safari / Chrome co giãn.
-- Đầy đủ thẻ Meta SEO, OpenGraph hiển thị ảnh đại diện và tiêu đề sang trọng khi chia sẻ lên Zalo, Facebook, TikTok.
 
 ---
 
 ## 🛠️ Công Nghệ Sử Dụng
 - **GSAP 3 (GreenSock Animation Platform)** - Động cơ diễn hoạt chuẩn Awwwards
+- **Web Audio API Pure Synthesis Engine** - Tổng hợp âm thanh chuông tiên tự nhiên
 - **Canvas Confetti & SVG Vector Graphics**
 - **Web Speech Synthesis API** - Đọc văn bản tiếng Việt tự nhiên
 - **Modern CSS3 (3D Perspective, Glassmorphism, CSS Gradients, Clamps)**
